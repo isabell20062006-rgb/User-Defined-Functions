@@ -1,0 +1,237 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <iomanip>
+using namespace std;
+
+// =============================
+// FUNCTION PROTOTYPES
+// =============================
+void printHeader(string courseTitle);
+void displayResult(string label, double value);
+void mathSummary(double x);
+double calcTax(double income, double rate);
+void countCalls();
+void displayBox (int width);
+void displayBox (int width, int height);
+double calcShipping(double weight, double ratePerPound = 1.50, double baseFee = 5.00);
+void convertTime(int totalSeconds, int &minutes, int &seconds);
+// =============================
+// Main Driver
+// =============================
+
+int main () {
+    // PART 3: Display Program Header
+    printHeader("Computer Science - Chapter 6 Master Program");
+    
+    // PART 1: Predefined Functions Warm-Up
+    cout << ">>> PART 1: Predefined Functions <<<" << endl;
+    mathSummary(16.25);
+    cout << endl;
+    mathSummary(-4.7);
+    cout << endl << "----------------------------------------" << endl << endl;
+
+    // PART 2 & PART 3: Value-Returning & Void Results
+    cout << ">>> PART 2 & 3: Tax Calculation <<<" << endl;
+    double grossIncome = 0.0;
+    double taxRate = 0.0;
+
+    cout << "Enter your gross income: $";
+    cin >> grossIncome;
+    cout << "Enter your tax rate as a decimal (e.g., 0.25): ";
+    cin >> taxRate;
+    double taxOwed = calcTax(grossIncome, taxRate);
+
+    cout << endl;
+    displayResult("Gross Income Entered", grossIncome);
+    displayResult("Tax Rate Applied    ", taxRate);
+    displayResult("Total Tax Owed      ", taxOwed);
+    cout << endl << "----------------------------------------" << endl << endl;
+
+    // PART 4: Value vs. Reference Parameters
+    cout << ">>> PART 4: Value vs. Reference Parameters <<<" << endl;
+    int inputSeconds = 0;
+    int calculatedMinutes = 0;
+    int calculatedSeconds = 0;
+
+    cout << "Enter total time in seconds: ";
+    cin >> inputSeconds;
+    convertTime(inputSeconds, calculatedMinutes, calculatedSeconds);
+
+    cout << endl;
+    displayResult("Total Minutes ", calculatedMinutes);
+    displayResult("Remaining Seconds ", calculatedSeconds);
+    cout << endl << "----------------------------------------" << endl << endl;
+
+    // PART 5: Scope and Static Variables
+    cout << ">>> PART 5: Scope & Static Variables <<<" << endl;
+    countCalls();
+    countCalls();
+    countCalls();
+    countCalls();
+    cout << endl << "----------------------------------------" << endl << endl;
+
+    // PART 6: Function Overloading
+    cout << ">>> PART 6: Function Overloading <<<" << endl;
+    cout << "Testing displayBox with Square (width: 5):" << endl;
+    displayBox(5);
+
+    cout << endl << "Testing displayBox with Rectangle (width: 7, height: 4):" << endl;
+    displayBox(7, 4);
+    cout << endl << "----------------------------------------" << endl << endl;
+
+    // PART 7: Default Parameters
+    cout << ">>> PART 7: Default Parameters <<<" << endl;
+    double packageWeight = 10.0;
+    cout << fixed << setprecision(2);
+    cout << "Package Weight Base: " << packageWeight << " lbs" << endl << endl;
+
+    // Call 1: All args passed
+    double costAllArgs = calcShipping(packageWeight, 2.25, 10.00);
+    cout << "1. Three Arguments (Custom Rate & Base):" << endl;
+    displayResult("   Total Shipping Cost", costAllArgs);
+
+    // Call 2: Two args passed
+    double costTwoArgs = calcShipping(packageWeight, 1.75);
+    cout << "2. Two Arguments (Custom Rate, Default Base):" << endl;
+    displayResult("   Total Shipping Cost", costTwoArgs);
+
+    // Call 3: One arg passed
+    double costOneArg = calcShipping(packageWeight);
+    cout << "3. One Argument (Default Rate & Base):" << endl;
+    displayResult("   Total Shipping Cost", costOneArg);
+
+    cout << endl << "========================================" << endl;
+    cout << "   End of Chapter 6 Demonstration Program " << endl;
+    cout << "========================================" << endl;
+
+    return 0;
+}
+
+// =============================
+// Function Definitions
+// =============================
+/*
+Function Name: printHeader
+Purpose: Prints a formatted text banner line at the top of the program.
+Parameters:courseTitle - a string containing the text banner message.
+Return Value: N/A
+*/
+void printHeader(string courseTitle) {
+    cout << "========================================" << endl;
+    cout << "  " << courseTitle << "  " << endl;
+    cout << "========================================" << endl << endl;
+}
+
+/*
+Function Name: displayResult
+Purpose: Prints a decriptor lable and dollar amount in 1 line.
+Parameters: label - text identifying what the number represents.
+value - the actual double number to display.
+Return Value: N/A
+*/
+void displayResult(string label, double value) {
+    cout << label << ": " << fixed << setprecision(2) << value << endl;
+}
+
+/*
+Function Name: mathSummary
+Purpose: Calculates square root, power, ceiling, floor, and inverted absolute values.
+Parameters:x - a double value used as the mathematical input.
+Return Value:  N/A
+*/
+void mathSummary(double x) {
+    double squareRoot = sqrt(x);
+    double powerOfThree = pow(x, 3);
+    double ceilingVal = ceil(x);
+    double floorVal = floor(x);
+    double absValue = abs(x * -1);
+
+    cout << "--- Math Summary for (x = " << x << ") ---" << endl;
+    cout << "  Square root of x: " << squareRoot << endl;
+    cout << "  x raised to power of 3: " << powerOfThree << endl;
+    cout << "  Ceiling of x: " << ceilingVal << endl;
+    cout << "  Floor of x: " << floorVal << endl;
+    cout << "  Absolute value of (x * -1): " << absValue << endl;
+}
+
+/*
+Function Name: calcTax
+Purpose: Calculates the tax total based on earnings and rates.
+Parameters: income - total raw gross earnings amount.
+rate - tax scaling multiplier in decimal format.
+Return Value: double - the computed tax bill total.
+*/
+double calcTax(double income, double rate) {
+    return income * rate;
+}
+
+/*
+Function Name: convertTime
+Purpose: Splits raw seconds into whole minutes and remainder seconds
+Parameters: totalSeconds - total input duration 
+minutes - placeholder to save calculated minute
+seconds - placeholder to save remaining seconds
+Return Value: N/A
+*/
+void convertTime(int totalSeconds, int &minutes, int &seconds) {
+    minutes = totalSeconds / 60;
+    seconds = totalSeconds % 60;
+}
+
+/*
+Function Name: countCalls
+Purpose: Maintains a count of how many times this routine was run.
+Parameters: N/A
+Return Value: N/A
+*/
+void countCalls() {
+    static int callCount = 0; 
+    callCount++; 
+    cout << "countCalls has been called " << callCount << " time(s)." << endl;
+}
+
+/*
+Function Name: displayBox 
+Purpose: Draws a perfect square hollow box pattern to the screen.
+Parameters: width - the dimension size of the square sides.
+Return Value: N/A
+*/
+void displayBox(int width) {
+    displayBox(width, width); 
+}
+
+/*
+Function Name: displayBox 
+Purpose: Draws a hollow rectangular block matrix using star characters.
+Parameters:  width - total stars long on horizontal rows.
+height - total stars stacked on vertical columns.
+Return Value: N/A
+*/
+void displayBox(int width, int height) {
+    if (width <= 0 || height <= 0) {
+        cout << "Invalid box dimensions." << endl;
+        return;
+    }
+    for (int row = 1; row <= height; row++) {
+        for (int col = 1; col <= width; col++) {
+            if (row == 1 || row == height || col == 1 || col == width) {
+                cout << "*";
+            } else {
+                cout << " "; 
+            }
+        }
+        cout << endl;
+    }
+}
+/*
+Function Name: calcShipping
+Purpose: Calculates cargo logistics charges based on load weights and fees.
+Parameters: weight - system mass in pounds.
+ratePerPound - flat charge rate per pound units.
+baseFee - flat mandatory minimum operational toll.
+Return Value:  double
+*/
+double calcShipping(double weight, double ratePerPound, double baseFee) {
+    return baseFee + (weight * ratePerPound);
+}
